@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_mini_fleet_root" 
+              name="Mini Fleet" 
+              sequence="100"/>
+    <menuitem id="menu_vehicle_configuration" 
+              name="Véhicules" 
+              parent="menu_mini_fleet_root" 
+              action="action_mini_vehicle"
+              sequence="1"/>
+</odoo>

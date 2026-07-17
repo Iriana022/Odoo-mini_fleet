@@ -1,0 +1,20 @@
+<odoo>
+    <record id="action_mini_vehicle" model="ir.actions.act_window">
+        <field name="name">Véhicules</field>
+        <field name="res_model">mini.vehicle</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_mini_vehicle_tree" model="ir.ui.view">
+        <field name="name">mini.vehicle.tree</field>
+        <field name="model">mini.vehicle</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="brand"/>
+                <field name="model"/>
+                <field name="chassis_no"/>
+            </tree>
+        </field>
+    </record>
+</odoo>
