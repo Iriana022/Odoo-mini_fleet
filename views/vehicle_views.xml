@@ -59,6 +59,33 @@
         </field>
     </record>
 
+<record id="view_mini_vehicle_search" model="ir.ui.view">
+    <field name="name">mini.vehicle.search</field>
+    <field name="model">mini.vehicle</field>
+    <field name="arch" type="xml">
+        <search>
+            <field name="name"/>
+            <field name="brand"/>
+            <field name="model"/>
+            <field name="driver_id"/>
+            
+            <!-- Filtres rapides -->
+            <filter string="En stock" name="filter_stock" domain="[('state', '=', 'stock')]"/>
+            <filter string="En fonction" name="filter_running" domain="[('state', '=', 'running')]"/>
+            <filter string="En location" name="filter_rental" domain="[('state', '=', 'rental')]"/>
+            <separator/>
+            <filter string="Brouillon" name="filter_draft" domain="[('state', '=', 'draft')]"/>
+            
+            <!-- Group By -->
+            <group expand="0" string="Grouper par">
+                <filter string="Statut" name="group_by_state" context="{'group_by': 'state'}"/>
+                <filter string="Marque" name="group_by_brand" context="{'group_by': 'brand'}"/>
+                <filter string="Chauffeur" name="group_by_driver" context="{'group_by': 'driver_id'}"/>
+            </group>
+        </search>
+    </field>
+</record>
+
     <!-- Vue Formulaire (Form) -->
     <record id="view_mini_vehicle_form" model="ir.ui.view">
         <field name="name">mini.vehicle.form</field>

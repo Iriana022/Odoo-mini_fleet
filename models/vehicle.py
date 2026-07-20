@@ -4,16 +4,16 @@ class Vehicle(models.Model) :
     _name = "mini.vehicle"
     _description = "Registre de Véhicules"
 
-    name = fields.Char(string='License Plate', required=True)
-    brand = fields.Char(string='Brand', required=True)
+    name = fields.Char(string="License Plate", required=True)
+    brand = fields.Char(string="Brand", required=True)
     model = fields.Char(string="Model", required=True)
     year = fields.Integer(string="Year")
     color = fields.Char(string="Color")
     chassis_no = fields.Char(string="Chassis number", required=True)
     mileage = fields.Float(string="Mileage")
 
-    log_ids = fields.One2many('mini.vehicle.log', 'vehicle_id', string="Historique")
-    
+    log_ids = fields.One2many('mini.vehicle.log', 'vehicle_id', string="Vehicle Logs")
+
     driver_id = fields.Many2one(
         'res.partner', 
         string='Driver', 
@@ -21,15 +21,15 @@ class Vehicle(models.Model) :
         help='Select the driver of this vehicle'
     )
 
-    driver_name = fields.Char(related='driver_id.name', string="Nom du conducteur", readonly=True)
-    driver_phone = fields.Char(related='driver_id.phone', string="Téléphone du conducteur", readonly=True)
+    driver_name = fields.Char(related='driver_id.name', string=_("Driver name"), readonly=True)
+    driver_phone = fields.Char(related='driver_id.phone', string=_("Driver\'s phone"), readonly=True)
 
     state = fields.Selection([
-        ('draft', 'À acheter'),
-        ('stock', 'En stock'),
-        ('running', 'En fonction'),
-        ('rental', 'En location'),
-        ('sold', 'Vendu')
+        ('draft', _('Draft')),
+        ('stock', _('In stock')),
+        ('running', _('Running')),
+        ('rental', _('Rental')),
+        ('sold', _('Sold'))
     ], string='Statut', default='draft', tracking=True, required=True)
 
     def action_set_stock(self):

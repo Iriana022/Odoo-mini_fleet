@@ -1,3 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_mini_vehicle,access.mini.vehicle,model_mini_vehicle,base.group_user,1,1,1,1
-access_mini_vehicle_log,access.mini.vehicle.log,model_mini_vehicle_log,base.group_user,1,1,1,1
+access_mini_vehicle_reader,access.mini.vehicle.reader,model_mini_vehicle,group_fleet_reader,1,0,0,0
+access_mini_vehicle_user,access.mini.vehicle.user,model_mini_vehicle,group_fleet_user,1,1,1,0
+access_mini_vehicle_manager,access.mini.vehicle.manager,model_mini_vehicle,group_fleet_manager,1,1,1,1
+access_mini_vehicle_log_reader,access.mini.vehicle.log.reader,model_mini_vehicle_log,group_fleet_reader,1,0,0,0
+access_mini_vehicle_log_user,access.mini.vehicle.log.user,model_mini_vehicle_log,group_fleet_user,1,1,1,0
+access_mini_vehicle_log_manager,access.mini.vehicle.log.manager,model_mini_vehicle_log,group_fleet_manager,1,1,1,1

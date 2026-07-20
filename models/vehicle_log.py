@@ -7,5 +7,5 @@ class VehicleLog(models.Model):
 
     name = fields.Char(string="Description", required=True)
     date = fields.Date(string="Date", default=fields.Date.context_today, required=True)
-    vehicle_id = fields.Many2one('mini.vehicle', string="Véhicule", required=True, ondelete='cascade')
+    vehicle_id = fields.Many2one('mini.vehicle', string="Vehicle", required=True, ondelete='cascade')
     note = fields.Text(string="Notes")
