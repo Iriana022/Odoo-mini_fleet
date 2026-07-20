@@ -30,8 +30,8 @@
         <field name="arch" type="xml">
             <form string="Véhicule">
                 <header>
-                    <button name="action_set_running" type="object" string="Mettre en service" states="draft,maintenance" class="oe_highlight"/>
-                    <button name="action_set_maintenance" type="object" string="Envoyer en maintenance" states="running"/>
+                    <button name="action_set_running" type="object" string="Mettre en service" class="oe_highlight" attrs="{'invisible': [('state', '=', 'running')]}"/>
+                    <button name="action_set_maintenance" type="object" string="Envoyer en maintenance" attrs="{'invisible': [('state', '=', 'maintenance')]}"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,running,maintenance"/>
                 </header>
                 <sheet>

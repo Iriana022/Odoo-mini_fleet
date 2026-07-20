@@ -7,8 +7,8 @@ class Vehicle(models.Model) :
     name = fields.Char(string='License Plate', required=True)
     brand = fields.Char(string='Brand', required=True)
     model = fields.Char(string="Model", required=True)
-    year = fields.Integer(string="Year", translate=True)
-    color = fields.Char(string="Color", translate=True)
+    year = fields.Integer(string="Year")
+    color = fields.Char(string="Color")
     chassis_no = fields.Char(string="Chassis number", required=True)
     mileage = fields.Float(string="Mileage")
 
