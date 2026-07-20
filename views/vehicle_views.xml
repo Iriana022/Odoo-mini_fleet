@@ -1,20 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- Action de la fenêtre -->
     <record id="action_mini_vehicle" model="ir.actions.act_window">
         <field name="name">Véhicules</field>
         <field name="res_model">mini.vehicle</field>
         <field name="view_mode">tree,form</field>
     </record>
 
+    <!-- Vue Liste (Tree) -->
     <record id="view_mini_vehicle_tree" model="ir.ui.view">
         <field name="name">mini.vehicle.tree</field>
         <field name="model">mini.vehicle</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree string="Véhicules">
                 <field name="name"/>
                 <field name="brand"/>
                 <field name="model"/>
                 <field name="chassis_no"/>
+                <field name="driver_id"/>
+                <field name="state" widget="badge" decoration-success="state == 'running'" decoration-info="state == 'draft'" decoration-warning="state == 'maintenance'"/>
             </tree>
+        </field>
+    </record>
+
+    <!-- Vue Formulaire (Form) -->
+    <record id="view_mini_vehicle_form" model="ir.ui.view">
+        <field name="name">mini.vehicle.form</field>
+        <field name="model">mini.vehicle</field>
+        <field name="arch" type="xml">
+            <form string="Véhicule">
+                <header>
+                    <button name="action_set_running" type="object" string="Mettre en service" states="draft,maintenance" class="oe_highlight"/>
+                    <button name="action_set_maintenance" type="object" string="Envoyer en maintenance" states="running"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,running,maintenance"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Immatriculation..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Informations Générales">
+                            <field name="brand"/>
+                            <field name="model"/>
+                            <field name="year"/>
+                            <field name="color"/>
+                        </group>
+                        <group string="Technique &amp; Affectation">
+                            <field name="chassis_no"/>
+                            <field name="mileage"/>
+                            <field name="driver_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
         </field>
     </record>
 </odoo>

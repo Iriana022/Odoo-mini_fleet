@@ -19,6 +19,21 @@ class Vehicle(models.Model) :
         help='Select the driver of this vehicle'
     )
 
+    state = fields.Selection([
+        ('draft', 'Nouveau'),
+        ('runing', 'En service'),
+        ('maintenance', 'En maintenance'),
+        ('Archived', 'Réformé')
+    ], string='Statut', default='draft', tracking=True)
+
+    def action_set_running(self):
+        for record in self:
+            record.state = 'runing'
+    
+    def action_set_maintenance(self):
+        for record in self:
+            record.state = 'maintenance'
+
     _sql_constraints = [
         ('name_unique', 'UNIQUE(name)', _('This license plate already exists.')),
         ('chassis_no_unique', 'UNIQUE(chassis_no)', _('This chassis number already exists.'))
