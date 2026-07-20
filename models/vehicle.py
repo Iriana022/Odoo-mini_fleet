@@ -12,6 +12,8 @@ class Vehicle(models.Model) :
     chassis_no = fields.Char(string="Chassis number", required=True)
     mileage = fields.Float(string="Mileage")
 
+    log_ids = fields.One2many('mini.vehicle.log', 'vehicle_id', string="Historique")
+    
     driver_id = fields.Many2one(
         'res.partner', 
         string='Driver', 
@@ -19,20 +21,32 @@ class Vehicle(models.Model) :
         help='Select the driver of this vehicle'
     )
 
+    driver_name = fields.Char(related='driver_id.name', string="Nom du conducteur", readonly=True)
+    driver_phone = fields.Char(related='driver_id.phone', string="Téléphone du conducteur", readonly=True)
+
     state = fields.Selection([
-        ('draft', 'Nouveau'),
-        ('running', 'En service'),
-        ('maintenance', 'En maintenance'),
-        ('Archived', 'Réformé')
-    ], string='Statut', default='draft', tracking=True)
+        ('draft', 'À acheter'),
+        ('stock', 'En stock'),
+        ('running', 'En fonction'),
+        ('rental', 'En location'),
+        ('sold', 'Vendu')
+    ], string='Statut', default='draft', tracking=True, required=True)
+
+    def action_set_stock(self):
+        for record in self:
+            record.state = 'stock'
 
     def action_set_running(self):
         for record in self:
-            record.state = 'runing'
+            record.state = 'running'
     
-    def action_set_maintenance(self):
+    def action_set_rental(self):
         for record in self:
-            record.state = 'maintenance'
+            record.state = 'rental'
+    
+    def action_set_sold(self):
+        for record in self:
+            record.state = 'sold'
 
     _sql_constraints = [
         ('name_unique', 'UNIQUE(name)', _('This license plate already exists.')),
