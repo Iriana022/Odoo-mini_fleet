@@ -21,7 +21,7 @@ class Vehicle(models.Model) :
 
     state = fields.Selection([
         ('draft', 'Nouveau'),
-        ('runing', 'En service'),
+        ('running', 'En service'),
         ('maintenance', 'En maintenance'),
         ('Archived', 'Réformé')
     ], string='Statut', default='draft', tracking=True)

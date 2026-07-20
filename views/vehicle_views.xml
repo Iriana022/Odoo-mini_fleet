@@ -16,6 +16,9 @@
                 <field name="name"/>
                 <field name="brand"/>
                 <field name="model"/>
+                <field name="year"/>
+                <field name="color"/>
+                <field name="mileage"/>
                 <field name="chassis_no"/>
                 <field name="driver_id"/>
                 <field name="state" widget="badge" decoration-success="state == 'running'" decoration-info="state == 'draft'" decoration-warning="state == 'maintenance'"/>
