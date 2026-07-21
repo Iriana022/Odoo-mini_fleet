@@ -1,5 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
+        
+        <record id="partner_driver_1" model="res.partner">
+            <field name="name">Jean Rakoto</field>
+            <field name="phone">+261 34 12 345 67</field>
+            <field name="email">jean.rakoto@example.com</field>
+        </record>
+
+        <record id="partner_driver_2" model="res.partner">
+            <field name="name">Fara Rasoanaivo</field>
+            <field name="phone">+261 33 98 765 43</field>
+            <field name="email">fara.rasoa@example.com</field>
+        </record>
+
+        <record id="partner_driver_3" model="res.partner">
+            <field name="name">Andry Andrianaivo</field>
+            <field name="phone">+261 32 55 443 32</field>
+            <field name="email">andry.andry@example.com</field>
+        </record>
+
+
         <record id="vehicle_demo_1" model="mini.vehicle">
             <field name="name">2504 TAA</field>
             <field name="brand">Toyota</field>
@@ -7,10 +28,11 @@
             <field name="year">2022</field>
             <field name="color">Blanc</field>
             <field name="chassis_no">JT8XYZ123456789</field>
-            <field name="mileage">45000.0</field>
+            <field name="mileage">45000</field>
             <field name="state">stock</field>
         </record>
 
+        <!-- 2. En fonction + Conducteur -->
         <record id="vehicle_demo_2" model="mini.vehicle">
             <field name="name">1234 TBX</field>
             <field name="brand">Ford</field>
@@ -18,14 +40,70 @@
             <field name="year">2023</field>
             <field name="color">Gris</field>
             <field name="chassis_no">AF4ABC987654321</field>
-            <field name="mileage">12500.0</field>
+            <field name="mileage">12500</field>
             <field name="state">running</field>
+            <field name="driver_id" ref="partner_driver_1"/>
         </record>
 
+        <!-- 3. Brouillon -->
+        <record id="vehicle_demo_3" model="mini.vehicle">
+            <field name="name">9999 TZZ</field>
+            <field name="brand">Renault</field>
+            <field name="model">Duster</field>
+            <field name="year">2024</field>
+            <field name="color">Bleu</field>
+            <field name="chassis_no">VF1HJD789123456</field>
+            <field name="mileage">150</field>
+            <field name="state">draft</field>
+        </record>
+
+        <!-- 4. En location + Conducteur -->
+        <record id="vehicle_demo_4" model="mini.vehicle">
+            <field name="name">5678 TCY</field>
+            <field name="brand">Hyundai</field>
+            <field name="model">Tucson</field>
+            <field name="year">2021</field>
+            <field name="color">Noir</field>
+            <field name="chassis_no">KMHSC81X9U98765</field>
+            <field name="mileage">68000</field>
+            <field name="state">rental</field>
+            <field name="driver_id" ref="partner_driver_2"/>
+        </record>
+
+        <!-- 5. Vendu -->
+        <record id="vehicle_demo_5" model="mini.vehicle">
+            <field name="name">0012 TAA</field>
+            <field name="brand">Nissan</field>
+            <field name="model">Patrol</field>
+            <field name="year">2018</field>
+            <field name="color">Rouge</field>
+            <field name="chassis_no">JN1TBSY61Z01234</field>
+            <field name="mileage">145000</field>
+            <field name="state">sold</field>
+            <field name="driver_id" ref="partner_driver_3"/>
+        </record>
+
+
         <record id="vehicle_log_demo_1" model="mini.vehicle.log">
-            <field name="name">Première révision technique</field>
+            <field name="name">Première révision technique et vidange</field>
             <field name="date">2026-06-15</field>
+            <field name="note">Changement des filtres à huile et vérification des freins.</field>
             <field name="vehicle_id" ref="vehicle_demo_1"/>
         </record>
+
+        <record id="vehicle_log_demo_2" model="mini.vehicle.log">
+            <field name="name">Attribution du véhicule au conducteur</field>
+            <field name="date">2026-05-10</field>
+            <field name="note">Remise des clés et vérification de l'état général de la carrosserie.</field>
+            <field name="vehicle_id" ref="vehicle_demo_2"/>
+        </record>
+
+        <record id="vehicle_log_demo_3" model="mini.vehicle.log">
+            <field name="name">Contrat de location longue durée</field>
+            <field name="date">2026-04-01</field>
+            <field name="note">Sortie du parc pour mise en location client.</field>
+            <field name="vehicle_id" ref="vehicle_demo_4"/>
+        </record>
+
     </data>
 </odoo>
