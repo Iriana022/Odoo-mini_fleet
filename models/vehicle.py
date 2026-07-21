@@ -1,10 +1,11 @@
 from odoo import models, fields, _, api
 from odoo.exceptions import ValidationError
-from datetime import datetime
+from datetime import date
 
 class Vehicle(models.Model) :
     _name = "mini.vehicle"
     _description = "Registre de Véhicules"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char(string="License Plate", required=True)
     brand = fields.Char(string="Brand", required=True)
@@ -12,7 +13,7 @@ class Vehicle(models.Model) :
     year = fields.Integer(string="Year")
     color = fields.Char(string="Color")
     chassis_no = fields.Char(string="Chassis number", required=True)
-    mileage = fields.Float(string="Mileage")
+    mileage = fields.Integer(string="Mileage")
 
     log_ids = fields.One2many('mini.vehicle.log', 'vehicle_id', string="Vehicle Logs")
 
@@ -27,18 +28,17 @@ class Vehicle(models.Model) :
     def _check_mileage(self):
         for record in self:
             if record.mileage < 0 or record.mileage > 2000000:
-                raise ValidationError("Mileage: Input error")
+                raise ValidationError("Le kilométrage doit etre compris entre 0 et 2 000 000 km.")
 
     @api.constrains('year')
     def _check_year(self):
-        current_year = datetime.now().year
+        current_year = date.today().year
         for record in self:
             if record.year :
                 if record.year < 1900 or record.year > current_year + 1:
-                    raise ValidationError("This year is not a valid input.")
+                    raise ValidationError(f"L'année doit être compris entre 1900 et {current_year + 1}.")
 
-    driver_name = fields.Char(related='driver_id.name', string=_("Driver name"), readonly=True)
-    driver_phone = fields.Char(related='driver_id.phone', string=_("Driver\'s phone"), readonly=True)
+    driver_phone = fields.Char(related='driver_id.phone', string="Driver\'s phone", readonly=True)
 
     state = fields.Selection([
         ('draft', _('Draft')),
@@ -65,6 +65,6 @@ class Vehicle(models.Model) :
             record.state = 'sold'
 
     _sql_constraints = [
-        ('name_unique', 'UNIQUE(name)', _('This license plate already exists.')),
-        ('chassis_no_unique', 'UNIQUE(chassis_no)', _('This chassis number already exists.'))
+        ('name_unique', 'UNIQUE(name)', 'This license plate already exists.'),
+        ('chassis_no_unique', 'UNIQUE(chassis_no)', 'This chassis number already exists.')
     ]
