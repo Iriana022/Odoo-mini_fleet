@@ -1,4 +1,6 @@
-from odoo import models, fields, _
+from odoo import models, fields, _, api
+from odoo.exceptions import ValidationError
+from datetime import datetime
 
 class Vehicle(models.Model) :
     _name = "mini.vehicle"
@@ -20,6 +22,20 @@ class Vehicle(models.Model) :
         ondelete='set null', 
         help='Select the driver of this vehicle'
     )
+
+    @api.constrains('mileage')
+    def _check_mileage(self):
+        for record in self:
+            if record.mileage < 0 or record.mileage > 2000000:
+                raise ValidationError("Mileage: Input error")
+
+    @api.constrains('year')
+    def _check_year(self):
+        current_year = datetime.now().year
+        for record in self:
+            if record.year :
+                if record.year < 1900 or record.year > current_year + 1:
+                    raise ValidationError("This year is not a valid input.")
 
     driver_name = fields.Char(related='driver_id.name', string=_("Driver name"), readonly=True)
     driver_phone = fields.Char(related='driver_id.phone', string=_("Driver\'s phone"), readonly=True)
