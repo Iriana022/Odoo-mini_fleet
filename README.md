@@ -23,7 +23,7 @@ mini_fleet/
 │   ├── vehicle.py
 │   └── vehicle_log.py
 ├── security/
-│   ├── fleet_security.xml
+│   ├── security.xml
 │   └── ir.model.access.csv
 ├── views/
 │   ├── vehicle_views.xml
