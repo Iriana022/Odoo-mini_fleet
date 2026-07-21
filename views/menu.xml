@@ -2,7 +2,9 @@
 <odoo>
     <menuitem id="menu_mini_fleet_root" 
               name="Mini Fleet" 
-              sequence="100"/>
+              sequence="100"
+              groups="group_fleet_manager"
+              />
     <menuitem id="menu_vehicle_configuration" 
               name="Véhicules" 
               parent="menu_mini_fleet_root" 

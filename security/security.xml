@@ -19,6 +19,7 @@
         <record id="group_fleet_manager" model="res.groups">
             <field name="name">Responsable</field>
             <field name="category_id" ref="module_category_mini_fleet"/>
+            <field name="implied_ids" eval="[(4, ref('group_fleet_user'))]"/>
         </record>
     </data>
 </odoo>

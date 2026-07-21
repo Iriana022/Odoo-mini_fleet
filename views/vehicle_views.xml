@@ -22,7 +22,7 @@
                 <field name="chassis_no"/>
                 <field name="driver_id"/>
                 <field name="driver_phone" widget="phone"/>
-                <field name="state" widget="badge" decoration-success="state == 'running'" decoration-info="state == 'draft'" decoration-warning="state == 'maintenance'"/>
+                <field name="state" widget="badge" decoration-success="state == 'running'" decoration-info="state == 'draft'"/>
             </tree>
         </field>
     </record>
@@ -32,7 +32,7 @@
         <field name="name">mini.vehicle.kanban</field>
         <field name="model">mini.vehicle</field>
         <field name="arch" type="xml">
-            <kanban default_group_by="state" class="o_kanban_mobile">
+            <kanban default_group_by="state">
                 <templates>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_global_click">
@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="o_kanban_record_bottom mt-2">
                                     <div class="oe_kanban_bottom_right">
-                                        <field name="state" widget="badge" decoration-success="state == 'running'" decoration-info="state == 'draft'" decoration-warning="state == 'maintenance'"/>
+                                        <field name="state" widget="badge" decoration-success="state == 'running'" decoration-info="state == 'draft'"/>
                                     </div>
                                 </div>
                             </div>
@@ -93,11 +93,11 @@
         <field name="arch" type="xml">
             <form string="Véhicule">
                 <header>
-                    <button name="action_set_stock" type="object" string="Réceptionner (En stock)" attrs="{'invisible': [('state', 'not in', ['draft'])]}" class="oe_highlight"/>
-                    <button name="action_set_running" type="object" string="Mettre en fonction" attrs="{'invisible': [('state', 'not in', ['stock'])]}" class="oe_highlight"/>
-                    <button name="action_set_rental" type="object" string="Mettre en location" attrs="{'invisible': [('state', 'not in', ['stock'])]}"/>
-                    <button name="action_set_stock" type="object" string="Retour en stock" attrs="{'invisible': [('state', 'not in', ['running', 'rental'])]}"/>
-                    <button name="action_set_sold" type="object" string="Vendre" attrs="{'invisible': [('state', 'not in', ['running', 'rental'])]}" class="btn-danger" confirm="Êtes-vous sûr de vouloir marquer ce véhicule comme vendu ?"/>
+                    <button name="action_set_stock" type="object" string="Réceptionner (En stock)" attrs="{'invisible': [('state', 'not in', ['draft'])]}" class="oe_highlight" groups="mini_fleet.group_fleet_user, mini_fleet.group_fleet_manager"/>
+                    <button name="action_set_running" type="object" string="Mettre en fonction" attrs="{'invisible': [('state', 'not in', ['stock'])]}" class="oe_highlight" groups="mini_fleet.group_fleet_user, mini_fleet.group_fleet_manager"/>
+                    <button name="action_set_rental" type="object" string="Mettre en location" attrs="{'invisible': [('state', 'not in', ['stock'])]}" groups="mini_fleet.group_fleet_user, mini_fleet.group_fleet_manager"/>
+                    <button name="action_set_stock" type="object" string="Retour en stock" attrs="{'invisible': [('state', 'not in', ['running', 'rental'])]}" groups="mini_fleet.group_fleet_user, mini_fleet.group_fleet_manager"/>
+                    <button name="action_set_sold" type="object" string="Vendre" attrs="{'invisible': [('state', 'not in', ['running', 'rental'])]}" class="btn-danger" confirm="Êtes-vous sûr de vouloir marquer ce véhicule comme vendu ?" groups="mini_fleet.group_fleet_manager"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,stock,running,rental,sold"/>
                 </header>
                 <sheet>
@@ -124,7 +124,6 @@
                         <page string="Conducteur">
                             <group>
                                 <field name="driver_id"/>
-                                <field name="driver_name"/>
                                 <field name="driver_phone" widget="phone"/>
                             </group>
                         </page>
